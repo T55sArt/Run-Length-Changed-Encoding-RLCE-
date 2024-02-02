@@ -1,4 +1,4 @@
 # Run-Length-Changed-Encoding-RLCE-
-Run Length Changed Encoding (RLE, but RL isnt defined until it changes (or when item has similar formatting, making compatible with any type of item (hopefully xD)) thus reducing even more redundancy
+Run Length Encoding (RLE), but reduces item size by only including the RL when it changes (or, in order to support any input data, when a item has similar formatting).
 
-All in all, the list count should be the same, this really only reduces item length as to not have its run length defined within every single element. I know ill be using this to compile strings of data for my printer project! :3
+Overall, lsit size will always be equivalent, but item length will be either equivalent, or take up less space when it can. So far after using this with custom image data, i've seen a ~30% reduction in char space using this compared to traditional RLE :3
