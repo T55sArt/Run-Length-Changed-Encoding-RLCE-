@@ -10,25 +10,23 @@ decodedData = rlce.Decode(str, encodedData, delimiter)
 
 #RLE vs RLCE:
 traditionalRLE = []
-prev = str(data[0])
+
+prev = data[0]
 runLen = 0
 for i in data:
-    i = str(i)
     if i == prev:
-        runLen = runLen + 1
+        runLen += 1
     else:
         traditionalRLE.append(f'{runLen}{delimiter}{prev}')
-        prev = i
+        prev = i 
         runLen = 1
 traditionalRLE.append(f'{runLen}{delimiter}{prev}')
 
 #Summing up chars count from RLE & RLCE:
 beforeChars = 0
-for i in traditionalRLE:
-    beforeChars = beforeChars + len(i)
+beforeChars = sum(len(i) for i in traditionalRLE)
 afterChars = 0
-for i in encodedData:
-    afterChars = afterChars + len(i)
+afterChars = sum(len(i) for i in encodedData)
 
 #Statistics:
 print(f'Original: {data}\nDelimiter: {delimiter}\n')
