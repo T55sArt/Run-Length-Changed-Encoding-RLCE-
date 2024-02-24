@@ -51,7 +51,7 @@ def Encode(Data:list, Delimiter:str):
     for i in Data:
         i = str(i)
         if i == prevInput:
-            curRunLength = curRunLength + 1
+            curRunLength += 1
         else:
             Encoded.append(f'{curRunLength}{Delimiter}{prevInput}' if hasSimilarFormat or not curRunLength == prevRunLength else prevInput)
             prevInput = i
@@ -71,19 +71,17 @@ def Decode(ToType, Data:list[str], Delimiter:str):
     """
     #Initialization:
     Decoded = []
-    curRunLength = 0
-    prevRunLength = 0
+    Item = Data[0]
+    runLength = ParseRLE(Item, Delimiter).RunLength
 
     #Loop:
     for i in Data:
         cur = ParseRLE(i, Delimiter)
         setNewRunLength = cur.Success
-        curRunLength = cur.RunLength if setNewRunLength else prevRunLength
+        if setNewRunLength:
+            runLength = cur.RunLength
         Item = cur.Data if setNewRunLength else i
-        if not curRunLength == prevRunLength:
-            prevRunLength = curRunLength
-        for _ in range(prevRunLength):
-            Decoded.append(ToType(Item))
+        Decoded.extend([ToType(Item) for _ in range(runLength)])
 
     #Return:
     return Decoded
